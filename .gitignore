@@ -1,0 +1,18 @@
+*.class
+*.swp
+target/
+work/
+
+# Package Files #
+*.war
+*.ear
+
+# IntelliJ
+.idea/
+*.iml
+
+# mac
+.DS_Store
+
+# Python
+*.pyc
