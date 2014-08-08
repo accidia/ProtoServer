@@ -6,7 +6,7 @@
     <groupId>com.pteyer.jrz</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.${build}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>jrz</name>
 
     <properties>
@@ -14,7 +14,28 @@
         <source.version>1.7</source.version>
         <target.version>1.7</target.version>
         <jersey.version>2.11</jersey.version>
+        <github.global.server>github</github.global.server>
     </properties>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://raw.github.com/rivr/redisax/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>scm:git:git@github.com:pteyer/jrz.git</url>
+        <developerConnection>scm:git:https://github.com/pteyer/jrz</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
