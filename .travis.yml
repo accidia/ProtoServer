@@ -8,4 +8,5 @@ branches:
     - master
 
 before_script:
-  - sudo apt-get install protobuf-compiler
+  - apt-get install protobuf-compiler
+  - protoc --version
