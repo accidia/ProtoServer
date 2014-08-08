@@ -44,7 +44,7 @@ public class GuidResourceTest {
     /**
      * Test to see that the message "Got it!" is sent in the response.
      */
-    @Test
+    @Test(enabled = false)
     public void testGetIt() {
         String responseMsg = target.path("guid").request().get(String.class);
         assertNotNull(responseMsg);
