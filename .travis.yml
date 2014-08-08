@@ -7,6 +7,6 @@ branches:
   only:
     - master
 
-before_script:
-  - apt-get install protobuf-compiler
+before_install:
+  - sudo apt-get install -y protobuf-compiler
   - protoc --version
