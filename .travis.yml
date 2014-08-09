@@ -11,4 +11,4 @@ before_install:
   - sudo apt-get install -y protobuf-compiler
 
 script:
-  - mvn clean compile test install deploy
+  - mvn clean compile test install 
