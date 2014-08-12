@@ -91,7 +91,6 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
                     "-> skipping");
             return;
         }
-        logger.info("loading configurations from {}", this.configurationFile.getAbsoluteFile());
         // TODO add logic to read configurations
     }
 
