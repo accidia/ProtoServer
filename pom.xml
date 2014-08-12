@@ -88,12 +88,6 @@
             <artifactId>jersey-container-jetty-http</artifactId>
             <version>${jersey.container.jetty.version}</version>
         </dependency>
-        <!--GRIZZLY-->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-grizzly2-http</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
         <!--JSON SUPPORT-->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>

@@ -7,7 +7,6 @@ import javax.ws.rs.client.WebTarget;
 import com.google.inject.Guice;
 import com.pteyer.jrz.Main;
 import com.pteyer.jrz.modules.JrzModulle;
-import org.glassfish.grizzly.http.server.HttpServer;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -16,15 +15,14 @@ import static org.testng.Assert.assertNotNull;
 
 public class GuidResourceTest {
 
-    private HttpServer server;
     private WebTarget target;
 
     @BeforeClass
     public void setUp() throws Exception {
         Guice.createInjector(new JrzModulle());
         // start the server
-        server = Main.startServer();
-        // create the client
+//        server = Main.startServer();
+//        create the client
         Client c = ClientBuilder.newClient();
 
         // uncomment the following line if you want to enable
@@ -38,7 +36,7 @@ public class GuidResourceTest {
 
     @AfterClass
     public void tearDown() throws Exception {
-        server.stop();
+//        server.stop();
     }
 
     /**

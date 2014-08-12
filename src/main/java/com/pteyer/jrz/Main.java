@@ -1,15 +1,12 @@
 package com.pteyer.jrz;
 
-import com.google.inject.Guice;
-import com.pteyer.jrz.modules.JrzModulle;
 import org.eclipse.jetty.server.Server;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URI;
+import java.util.Arrays;
 
 public class Main {
     public static final String BASE_URI = "http://0.0.0.0:3891/jrz/";
@@ -19,25 +16,24 @@ public class Main {
         this.cliArguments = cliArguments;
     }
 
-    public static HttpServer startServer() {
-        // create a resource config that scans for JAX-RS resources and providers
-        // in com.pteyer.jrz package
-        final ResourceConfig rc = new ResourceConfig()
-                .packages("com.pteyer.jrz");
-
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
-    }
-
-    public static void mainGrizzly(String[] args) throws IOException {
-        Guice.createInjector(new JrzModulle());
-        final HttpServer server = startServer();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-        System.in.read();
-        server.stop();
+    public static void showUsage(final PrintStream printStream) {
+        printStream.print(Constants.Main.USAGE_STRING);
     }
 
     public static void main(final String[] cliArguments) throws Exception {
+        if (cliArguments.length >= 1) {
+            if (("help".equalsIgnoreCase(cliArguments[0])
+                    || ("--help".equalsIgnoreCase(cliArguments[0]))
+                    || ("-h".equalsIgnoreCase(cliArguments[0])))) {
+                showUsage(System.out);
+                return;
+            } else {
+                // all parameters has to be passed as environment variables
+                showUsage(System.err);
+                throw new IllegalArgumentException("invalid argument: " + Arrays.toString(cliArguments));
+            }
+        }
+
         final Main theMainApplication = new Main(cliArguments);
 
         final ResourceConfig config = new ResourceConfig()
