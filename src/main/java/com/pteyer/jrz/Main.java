@@ -10,11 +10,6 @@ import java.util.Arrays;
 
 public class Main {
     public static final String BASE_URI = "http://0.0.0.0:3891/jrz/";
-    private final String[] cliArguments;
-
-    public Main(final String[] cliArguments) {
-        this.cliArguments = cliArguments;
-    }
 
     public static void showUsage(final PrintStream printStream) {
         printStream.print(Constants.Main.USAGE_STRING);
@@ -34,7 +29,7 @@ public class Main {
             }
         }
 
-        final Main theMainApplication = new Main(cliArguments);
+        final Main theMainApplication = new Main();
 
         final ResourceConfig config = new ResourceConfig()
                 .packages("com.pteyer.jrz");
