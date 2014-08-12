@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.Arrays;
 
+import static com.pteyer.jrz.Constants.Main.*;
 import static org.testng.Assert.*;
 
 public class MainTest {
@@ -13,7 +14,7 @@ public class MainTest {
         try {
             Main.main(arguments);
         } catch (IllegalArgumentException e) {
-            assertEquals(e.getMessage(), "invalid argument: " + Arrays.toString(arguments));
+            assertEquals(e.getMessage(), EXCEPTION_MESSAGE_PREFIX_INVALID_ARGUMENT + Arrays.toString(arguments));
         }
     }
 
@@ -36,4 +37,21 @@ public class MainTest {
         Main.main(new String[]{"-h"});
         assertTrue(true);
     }
+
+    @Test
+    public void testMainWithConfigNoValueIllegalArgumentException() throws Exception {
+        final String[] arguments = new String[]{"--config"};
+        try {
+            Main.main(arguments);
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), EXCEPTION_MESSAGE_CONFIG_VALUE_MISSING);
+        }
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testMainWithConfigNoValue() throws Exception {
+        Main.main(new String[]{"--config"});
+        assertTrue(false);
+    }
+
 }
