@@ -76,7 +76,7 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${commons.beanutils.version}</version>
         </dependency>
-        <!--LOGGING-->
+        <!--LOGBACK-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -212,7 +212,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.pteyer.jrz.Main</mainClass>
+                    <mainClass>com.pteyer.jrz.AbstractBaseMain</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -220,7 +220,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.pteyer.jrz.Main</mainClass>
+                            <mainClass>com.pteyer.jrz.AbstractBaseMain</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
