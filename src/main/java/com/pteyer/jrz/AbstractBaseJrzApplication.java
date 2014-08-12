@@ -13,8 +13,8 @@ import java.util.Arrays;
 
 import static com.pteyer.jrz.Constants.Main.*;
 
-public abstract class AbstractBaseMain {
-    private final Logger logger = LoggerFactory.getLogger(AbstractBaseMain.class);
+public abstract class AbstractBaseJrzApplication implements IJrzApplication {
+    private final Logger logger = LoggerFactory.getLogger(AbstractBaseJrzApplication.class);
     private Server server;
     private File configurationFile = null;
 
@@ -22,7 +22,8 @@ public abstract class AbstractBaseMain {
         printStream.print(USAGE_STRING);
     }
 
-    public void start(final String[] cliArguments) {
+    @Override
+    public void init(final String[] cliArguments) {
         if (cliArguments != null && cliArguments.length >= 1) {
             final String firstArgument = cliArguments[0];
             if (("help".equalsIgnoreCase(firstArgument)
@@ -60,7 +61,7 @@ public abstract class AbstractBaseMain {
 
         loadConfigurations();
         try {
-            startJettyServer();
+            startServer();
         } catch (Exception e) {
             logger.error("caught an exception when trying to start jetty server " +
                     "-> rethrowing as runtime exception", e);
@@ -68,17 +69,18 @@ public abstract class AbstractBaseMain {
         }
     }
 
-    public void startJettyServer() throws Exception {
+    @Override
+    public void startServer() throws Exception {
         logger.info("starting server at {}", getBaseUri().toString());
         this.server = JettyHttpContainerFactory.createServer(getBaseUri(), getResourceConfig());
         this.server.start();
     }
 
-    public void waitForJettyServer() throws InterruptedException {
+    public void joinOnServer() throws InterruptedException {
         this.server.join();
     }
 
-    public void stopJettyServer() throws Exception {
+    public void stopServer() throws Exception {
         this.server.getServer().stop();
         this.server.destroy();
     }

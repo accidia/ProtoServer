@@ -5,7 +5,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import com.google.inject.Guice;
-import com.pteyer.jrz.AbstractBaseMain;
+import com.pteyer.jrz.IJrzApplication;
 import com.pteyer.jrz.JrzApplicationTestGuid;
 import com.pteyer.jrz.modules.JrzModulle;
 import org.testng.annotations.AfterClass;
@@ -17,19 +17,19 @@ import static org.testng.Assert.assertNotNull;
 public class GuidResourceTest {
 
     private WebTarget target;
-    private AbstractBaseMain main = new JrzApplicationTestGuid();
+    private IJrzApplication application = new JrzApplicationTestGuid();
 
     @BeforeClass
     public void setUp() throws Exception {
         Guice.createInjector(new JrzModulle());
-        this.main.start(null);
+        this.application.init(null);
         final Client client = ClientBuilder.newClient();
         this.target = client.target(JrzApplicationTestGuid.BASE_URI);
     }
 
     @AfterClass
     public void tearDown() throws Exception {
-        this.main.stopJettyServer();
+        this.application.stopServer();
     }
 
     /**
