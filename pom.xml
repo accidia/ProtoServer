@@ -11,9 +11,18 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--VERSIONS-->
         <source.version>1.7</source.version>
         <target.version>1.7</target.version>
         <jersey.version>2.11</jersey.version>
+        <jersey.container.jetty.version>2.11</jersey.container.jetty.version>
+        <protobuf.version>2.5.0</protobuf.version>
+        <commons.configuration.version>1.10</commons.configuration.version>
+        <commons.beanutils.version>1.9.2</commons.beanutils.version>
+        <logback.version>1.1.2</logback.version>
+        <guava.version>15.0</guava.version>
+
         <github.global.server>github</github.global.server>
     </properties>
 
@@ -56,17 +65,28 @@
             <artifactId>guice</artifactId>
             <version>3.0</version>
         </dependency>
+        <!--COMMONS-->
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons.configuration.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons.beanutils.version}</version>
+        </dependency>
         <!--LOGGING-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.2</version>
+            <version>${logback.version}</version>
         </dependency>
         <!--JETTY-->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-jetty-http</artifactId>
-            <version>2.11</version>
+            <version>${jersey.container.jetty.version}</version>
         </dependency>
         <!--GRIZZLY-->
         <dependency>
@@ -84,13 +104,13 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>15.0</version>
+            <version>${guava.version}</version>
         </dependency>
         <!--PROTOBUF-->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>2.5.0</version>
+            <version>${protobuf.version}</version>
         </dependency>
         <!--PROTOBUF-JSON-->
         <dependency>
