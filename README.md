@@ -18,7 +18,7 @@ Or use it as a maven dependency:
 
 <repositories>
     <repository>
-        <id>redisax-mvn-repo</id>
+        <id>jrz-mvn-repo</id>
         <url>https://raw.github.com/pteyer/jrz/mvn-repo/</url>
         <snapshots>
             <enabled>true</enabled>
