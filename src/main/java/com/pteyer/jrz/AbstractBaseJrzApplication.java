@@ -60,13 +60,6 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
         }
 
         loadConfigurations();
-        try {
-            startServer();
-        } catch (Exception e) {
-            logger.error("caught an exception when trying to start jetty server " +
-                    "-> rethrowing as runtime exception", e);
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -78,10 +71,12 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
         this.server.start();
     }
 
+    @Override
     public void joinOnServer() throws InterruptedException {
         this.server.join();
     }
 
+    @Override
     public void stopServer() throws Exception {
         this.server.getServer().stop();
         this.server.destroy();
