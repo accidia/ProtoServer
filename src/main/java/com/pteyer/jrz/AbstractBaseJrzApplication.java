@@ -73,11 +73,13 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
 
     @Override
     public void joinOnServer() throws InterruptedException {
+        logger.info("joining on server");
         this.server.join();
     }
 
     @Override
     public void stopServer() throws Exception {
+        logger.info("stopping server");
         this.server.getServer().stop();
         this.server.destroy();
     }
