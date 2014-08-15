@@ -23,6 +23,7 @@ public class GuidResourceTest {
     public void setUp() throws Exception {
         Guice.createInjector(new JrzModulle());
         this.application.init(null);
+        this.application.startServer();
         final Client client = ClientBuilder.newClient();
         this.target = client.target(JrzApplicationTestGuid.BASE_URI);
     }

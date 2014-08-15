@@ -60,14 +60,14 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
         }
 
         loadConfigurations();
+        final ResourceConfig resourceConfig = getResourceConfig()
+                .packages("com.pteyer.jrz");
+        this.server = JettyHttpContainerFactory.createServer(getBaseUri(), resourceConfig);
     }
 
     @Override
     public void startServer() throws Exception {
         logger.info("starting server at {}", getBaseUri().toString());
-        final ResourceConfig resourceConfig = getResourceConfig()
-                .packages("com.pteyer.jrz");
-        this.server = JettyHttpContainerFactory.createServer(getBaseUri(), resourceConfig);
         this.server.start();
     }
 
