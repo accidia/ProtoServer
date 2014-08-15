@@ -22,7 +22,11 @@
         <commons.beanutils.version>1.9.2</commons.beanutils.version>
         <logback.version>1.1.2</logback.version>
         <guava.version>15.0</guava.version>
+        <guice.version>3.0</guice.version>
         <testng.version>6.1.1</testng.version>
+
+        <mvn.plugins.compiler.version>2.5.1</mvn.plugins.compiler.version>
+        <mvn.plugins.exec.version>1.2.1</mvn.plugins.exec.version>
 
         <github.global.server>github</github.global.server>
     </properties>
@@ -64,7 +68,7 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>3.0</version>
+            <version>${guice.version}</version>
         </dependency>
         <!--COMMONS-->
         <dependency>
@@ -127,7 +131,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>${mvn.plugins.compiler.version}</version>
                 <inherited>true</inherited>
                 <configuration>
                     <source>${source.version}</source>
@@ -204,7 +208,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>${mvn.plugins.exec.version}</version>
                 <executions>
                     <execution>
                         <goals>
