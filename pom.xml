@@ -9,6 +9,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>jrz</name>
 
+    <description>JRZ is embedded jetty, jersey, and guice</description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -35,7 +37,7 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://raw.github.com/rivr/redisax/master/LICENSE</url>
+            <url>https://raw.github.com/rivr/jrz/master/LICENSE</url>
         </license>
     </licenses>
 
@@ -240,9 +242,11 @@
                     <noJekyll>true</noJekyll>
                     <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
                     <branch>refs/heads/mvn-repo</branch>
-                    <includes><include>**/*</include></includes>
-                    <repositoryName>jrz</repositoryName>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
                     <repositoryOwner>pteyer</repositoryOwner>
+                    <repositoryName>jrz</repositoryName>
                 </configuration>
                 <executions>
                     <execution>
