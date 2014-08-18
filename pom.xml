@@ -27,7 +27,6 @@
         <guava.version>15.0</guava.version>
         <guice.version>3.0</guice.version>
         <testng.version>6.1.1</testng.version>
-        <metrics.version>3.0.2</metrics.version>
 
         <mvn.plugins.compiler.version>2.5.1</mvn.plugins.compiler.version>
         <mvn.plugins.exec.version>1.2.1</mvn.plugins.exec.version>
@@ -115,17 +114,6 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
-        </dependency>
-        <!--METRICS-->
-        <dependency>
-            <groupId>com.codahale.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-            <version>${metrics.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.codahale.metrics</groupId>
-            <artifactId>metrics-jersey</artifactId>
-            <version>${metrics.version}</version>
         </dependency>
     </dependencies>
 
