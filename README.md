@@ -10,7 +10,7 @@ Or use it as a maven dependency:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>com.pteyer.jrz</groupId>
+        <groupId>com.pteyer</groupId>
         <artifactId>jrz</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
