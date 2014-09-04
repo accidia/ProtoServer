@@ -15,6 +15,7 @@ import static com.pteyer.jrz.Constants.Main.*;
 
 public abstract class AbstractBaseJrzApplication implements IJrzApplication {
     private final Logger logger = LoggerFactory.getLogger(AbstractBaseJrzApplication.class);
+
     private Server server;
     private File configurationFile = null;
 
@@ -92,6 +93,11 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
         }
         // TODO add logic to read configurations
     }
+
+    protected Server getServer() {
+        return server;
+    }
+
 
     protected abstract ResourceConfig getResourceConfig();
     protected abstract URI getBaseUri();

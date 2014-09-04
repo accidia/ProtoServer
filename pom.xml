@@ -1,15 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pteyer</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>jrz</name>
+    <url>https://github.com/pteyer/jrz</url>
 
-    <description>JRZ is embedded jetty, jersey, and guice</description>
+    <description>Jersey + Jetty</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,15 +44,16 @@
     <scm>
         <url>scm:git:git@github.com:pteyer/jrz.git</url>
         <developerConnection>scm:git:https://github.com/pteyer/jrz</developerConnection>
+        <connection>scm:git:https://github.com/pteyer/jrz.git</connection>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>internal.repo</id>
-            <name>Temporary Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-repo</url>
-        </repository>
-    </distributionManagement>
+    <developers>
+        <developer>
+            <id>pteyer</id>
+            <name>Paymon Teyer</name>
+            <email>pteyer@gmail.com</email>
+        </developer>
+    </developers>
 
     <dependencies>
         <!--GUICE-->
@@ -246,30 +247,6 @@
                         <goals>
                             <goal>deploy</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.9</version>
-                <configuration>
-                    <message>Maven artifacts for ${project.version}</message>
-                    <noJekyll>true</noJekyll>
-                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                    <branch>refs/heads/mvn-repo</branch>
-                    <includes>
-                        <include>**/*</include>
-                    </includes>
-                    <repositoryOwner>pteyer</repositoryOwner>
-                    <repositoryName>jrz</repositoryName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>deploy</phase>
                     </execution>
                 </executions>
             </plugin>
