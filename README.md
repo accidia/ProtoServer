@@ -12,18 +12,7 @@ Or use it as a maven dependency:
     <dependency>
         <groupId>com.pteyer</groupId>
         <artifactId>jrz</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </dependency>
 </dependencies>
-
-<repositories>
-    <repository>
-        <id>jrz-mvn-repo</id>
-        <url>https://raw.github.com/pteyer/jrz/mvn-repo/</url>
-        <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>always</updatePolicy>
-        </snapshots>
-    </repository>
-</repositories>
 ```
