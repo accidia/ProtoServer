@@ -5,7 +5,7 @@
     <groupId>com.pteyer</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>jrz</name>
     <url>https://github.com/pteyer/jrz</url>
 
@@ -29,8 +29,6 @@
 
         <mvn.plugins.compiler.version>2.5.1</mvn.plugins.compiler.version>
         <mvn.plugins.exec.version>1.2.1</mvn.plugins.exec.version>
-
-        <github.global.server>github</github.global.server>
     </properties>
 
     <licenses>
@@ -161,7 +159,7 @@
                     <show>public</show>
                     <source>${source.version}</source>
                     <version>true</version>
-                    <windowtitle>dbz</windowtitle>
+                    <windowtitle>jrz</windowtitle>
                 </configuration>
                 <executions>
                     <execution>
