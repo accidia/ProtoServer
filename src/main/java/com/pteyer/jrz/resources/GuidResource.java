@@ -1,6 +1,5 @@
 package com.pteyer.jrz.resources;
 
-import com.google.inject.Inject;
 import com.pteyer.jrz.services.IGuidService;
 import com.pteyer.jrz.services.impl.GuidServiceImpl;
 import com.pteyer.jrz.protos.JrzProtos;
@@ -13,17 +12,12 @@ import javax.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "guid" path)
  */
-@Path("guid")
+@Path(".guid")
 public class GuidResource {
     private IGuidService service;
 
     public GuidResource() {
         this.service = new GuidServiceImpl();
-    }
-
-    @Inject
-    public GuidResource(IGuidService service) {
-        this.service = service;
     }
 
     /**
@@ -33,7 +27,7 @@ public class GuidResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF})
     public JrzProtos.Guid getGuid() {
         return this.service.getGuid();
     }

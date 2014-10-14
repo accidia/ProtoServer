@@ -9,7 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("status")
+@Path(".status")
 public class StatusResource {
     private final IStatusService service;
 
@@ -18,7 +18,7 @@ public class StatusResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF})
     public JrzProtos.Status getStatus() {
         return service.getStatus();
     }

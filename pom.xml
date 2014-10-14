@@ -5,7 +5,7 @@
     <groupId>com.pteyer</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>jrz</name>
     <url>https://github.com/pteyer/jrz</url>
 
@@ -21,11 +21,10 @@
         <jersey.container.jetty.version>2.11</jersey.container.jetty.version>
         <protobuf.version>2.5.0</protobuf.version>
         <protobuf.java.version>1.2</protobuf.java.version>
-        <commons.configuration.version>1.10</commons.configuration.version>
         <commons.beanutils.version>1.9.2</commons.beanutils.version>
+        <slf4j.version>1.7.7</slf4j.version>
         <logback.version>1.1.2</logback.version>
         <guava.version>15.0</guava.version>
-        <guice.version>3.0</guice.version>
         <testng.version>6.1.1</testng.version>
 
         <mvn.plugins.compiler.version>2.5.1</mvn.plugins.compiler.version>
@@ -63,29 +62,13 @@
     </developers>
 
     <dependencies>
-        <!--GUICE-->
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
-        </dependency>
-        <!--COMMONS-->
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>${commons.configuration.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons.beanutils.version}</version>
-        </dependency>
         <!--LOGGING-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
+            <version>${slf4j.version}</version>
         </dependency>
+        <!--LOGBACK-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -133,6 +116,7 @@
 
     <build>
         <plugins>
+            <!--INCLUDE PROTOS-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -171,15 +155,31 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>apidocs/</outputDirectory>
+                    <author>false</author>
+                    <show>public</show>
+                    <source>${source.version}</source>
+                    <version>true</version>
+                    <windowtitle>dbz</windowtitle>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                        <phase>compile</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <parallel>classes</parallel>
+                    <threadCount>4</threadCount>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -257,6 +257,19 @@
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>

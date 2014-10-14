@@ -4,10 +4,8 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
-import com.google.inject.Guice;
 import com.pteyer.jrz.IJrzApplication;
 import com.pteyer.jrz.JrzApplicationTestGuid;
-import com.pteyer.jrz.modules.JrzModulle;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,8 +19,6 @@ public class GuidResourceTest {
 
     @BeforeClass
     public void setUp() throws Exception {
-        Guice.createInjector(new JrzModulle());
-        this.application.init(null);
         this.application.startServer();
         final Client client = ClientBuilder.newClient();
         this.target = client.target(JrzApplicationTestGuid.BASE_URI);
@@ -38,7 +34,7 @@ public class GuidResourceTest {
      */
     @Test
     public void testGetIt() {
-        String responseMsg = target.path("guid").request().get(String.class);
+        String responseMsg = this.target.path(".guid").request().get(String.class);
         assertNotNull(responseMsg);
     }
 }

@@ -16,3 +16,5 @@ work/
 
 # Python
 *.pyc
+
+apidocs/
