@@ -1,11 +1,14 @@
 package com.pteyer.jrz.providers;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
 import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
 import com.googlecode.protobuf.format.JsonFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.misc.IOUtils;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
@@ -26,7 +29,6 @@ import java.lang.reflect.Type;
 public class JsonMessageReader implements MessageBodyReader<Message> {
     private static final Logger logger = LoggerFactory.getLogger(JsonMessageReader.class);
 
-    public static final String LS = System.getProperty("line.separator");
     private final ExtensionRegistry extensionRegistry = ExtensionRegistry.newInstance();
 
     @Override
@@ -44,29 +46,12 @@ public class JsonMessageReader implements MessageBodyReader<Message> {
         try {
             final Method newBuilder = type.getMethod("newBuilder");
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
-            final String data = convertInputStreamToString(entityStream);
-            JsonFormat.merge(data, extensionRegistry, builder);
-            return builder.build();
+            final String data = CharStreams.toString(new InputStreamReader(entityStream, Charsets.UTF_8));
+            JsonFormat.merge(data, this.extensionRegistry, builder);
+            return builder.buildPartial();
         } catch (Exception e) {
             logger.warn("caught an exception", e);
             throw new WebApplicationException(e);
         }
-    }
-
-    private String convertInputStreamToString(InputStream io) {
-        final StringBuilder sb = new StringBuilder();
-        try {
-            final BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(io));
-            String line = reader.readLine();
-            while (line != null) {
-                sb.append(line).append(LS);
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            logger.warn("caught an exception", e);
-            throw new RuntimeException("cannot get inputstream", e);
-        }
-        return sb.toString();
     }
 }

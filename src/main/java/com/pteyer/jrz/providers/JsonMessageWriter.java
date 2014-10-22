@@ -2,8 +2,6 @@ package com.pteyer.jrz.providers;
 
 import com.google.protobuf.Message;
 import com.googlecode.protobuf.format.JsonFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -19,15 +17,14 @@ import java.lang.reflect.Type;
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 public class JsonMessageWriter implements MessageBodyWriter<Message> {
-    private static final Logger logger = LoggerFactory.getLogger(JsonMessageWriter.class);
 
     @Override
-    public long getSize(final Message arg0,
-                        final Class arg1,
-                        final Type arg2,
-                        final Annotation[] arg3,
-                        final MediaType arg4) {
-        return -1;
+    public long getSize(final Message message,
+                        final Class clazz,
+                        final Type type,
+                        final Annotation[] annotations,
+                        final MediaType mediaType) {
+        return JsonFormat.printToString(message).length();
     }
 
     @Override
@@ -40,11 +37,11 @@ public class JsonMessageWriter implements MessageBodyWriter<Message> {
 
     @Override
     public void writeTo(final Message message,
-                        final Class arg1,
-                        final Type arg2,
-                        final Annotation[] arg3,
-                        final MediaType arg4,
-                        final MultivaluedMap arg5,
+                        final Class clazz,
+                        final Type type,
+                        final Annotation[] annotations,
+                        final MediaType mediaType,
+                        final MultivaluedMap multivaluedMap,
                         final OutputStream outputStream) throws IOException, WebApplicationException {
         outputStream.write(JsonFormat.printToString(message).getBytes());
     }

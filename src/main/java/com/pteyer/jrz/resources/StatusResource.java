@@ -18,7 +18,7 @@ public class StatusResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF})
+    @Produces({MediaType.APPLICATION_JSON, com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF + ";qs=0.5"})
     public JrzProtos.Status getStatus() {
         return service.getStatus();
     }

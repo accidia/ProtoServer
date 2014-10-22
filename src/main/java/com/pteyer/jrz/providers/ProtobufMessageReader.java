@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 @Provider
-@Consumes("application/x-protobuf")
+@Consumes(com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF)
 public class ProtobufMessageReader implements MessageBodyReader<Message> {
     @Override
     public boolean isReadable(final Class<?> type,
@@ -36,7 +36,7 @@ public class ProtobufMessageReader implements MessageBodyReader<Message> {
         try {
             final Method newBuilder = type.getMethod("newBuilder");
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
-            return builder.mergeFrom(entityStream).build();
+            return builder.mergeFrom(entityStream).buildPartial();
         } catch (Exception e) {
             throw new WebApplicationException("caught an exception", e);
         }

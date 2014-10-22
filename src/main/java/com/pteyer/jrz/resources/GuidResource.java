@@ -27,7 +27,7 @@ public class GuidResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces({MediaType.APPLICATION_JSON, com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF})
+    @Produces({MediaType.APPLICATION_JSON, com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF + ";qs=0.5"})
     public JrzProtos.Guid getGuid() {
         return this.service.getGuid();
     }
