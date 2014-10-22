@@ -8,7 +8,6 @@ import com.google.protobuf.Message;
 import com.googlecode.protobuf.format.JsonFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.IOUtils;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
@@ -16,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
