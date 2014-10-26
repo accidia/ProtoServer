@@ -1,7 +1,8 @@
 package com.pteyer.jrz.services;
 
-import com.pteyer.jrz.protos.JrzProtos;
+import static com.pteyer.jrz.protos.JrzProtos.Status;
 
 public interface IStatusService {
-    JrzProtos.Status getStatus();
+
+    Status getStatus();
 }
