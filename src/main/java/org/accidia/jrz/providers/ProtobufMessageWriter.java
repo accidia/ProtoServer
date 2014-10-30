@@ -1,4 +1,4 @@
-package com.pteyer.jrz.providers;
+package org.accidia.jrz.providers;
 
 import com.google.protobuf.Message;
 
@@ -14,7 +14,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
 @Provider
-@Produces(com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF)
+@Produces(org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF)
 public class ProtobufMessageWriter implements MessageBodyWriter<Message> {
 
     @Override

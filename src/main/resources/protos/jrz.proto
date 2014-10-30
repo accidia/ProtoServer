@@ -1,4 +1,4 @@
-option java_package = "com.pteyer.jrz.protos";
+option java_package = "org.accidia.jrz.protos";
 option java_outer_classname = "JrzProtos";
 
 // this is mostly to sanity check jrz container
@@ -8,17 +8,18 @@ message Guid {
 }
 
 message Status {
-    optional string cpu_time = 1;
-    optional string user_time = 2;
-    optional string system_time = 3;
     message Property {
         required string key = 1;
         required string value = 2;
     }
-    repeated Property properties = 4;
     message Environment {
         required string key = 1;
         required string value = 2;
     }
+
+    optional string cpu_time = 1;
+    optional string user_time = 2;
+    optional string system_time = 3;
+    repeated Property properties = 4;
     repeated Environment environments = 5;
 }

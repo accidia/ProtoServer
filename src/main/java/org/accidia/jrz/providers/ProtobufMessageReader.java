@@ -1,4 +1,4 @@
-package com.pteyer.jrz.providers;
+package org.accidia.jrz.providers;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 @Provider
-@Consumes(com.pteyer.jrz.misc.MediaType.APPLICATION_PROTOBUF)
+@Consumes(org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF)
 public class ProtobufMessageReader implements MessageBodyReader<Message> {
     @Override
     public boolean isReadable(final Class<?> type,

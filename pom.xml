@@ -2,12 +2,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pteyer</groupId>
+    <groupId>org.accidia</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.9</version>
+    <version>0.0.10</version>
     <name>jrz</name>
-    <url>https://github.com/pteyer/jrz</url>
+    <url>https://github.com/accidia/jrz</url>
 
     <description>Jersey + Jetty</description>
 
@@ -34,14 +34,14 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://raw.github.com/pteyer/jrz/master/LICENSE</url>
+            <url>https://raw.github.com/accidia/jrz/master/LICENSE</url>
         </license>
     </licenses>
 
     <scm>
-        <url>scm:git:git@github.com:pteyer/jrz.git</url>
-        <developerConnection>scm:git:https://github.com/pteyer/jrz</developerConnection>
-        <connection>scm:git:https://github.com/pteyer/jrz.git</connection>
+        <url>scm:git:git@github.com:accidia/jrz.git</url>
+        <developerConnection>scm:git:https://github.com/accidia/jrz</developerConnection>
+        <connection>scm:git:https://github.com/accidia/jrz.git</connection>
     </scm>
 
     <distributionManagement>
@@ -235,7 +235,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.pteyer.jrz.AbstractBaseJrzApplication</mainClass>
+                    <mainClass>org.accidia.jrz.AbstractBaseJrzApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -243,7 +243,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.pteyer.jrz.AbstractBaseJrzApplication</mainClass>
+                            <mainClass>org.accidia.jrz.AbstractBaseJrzApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

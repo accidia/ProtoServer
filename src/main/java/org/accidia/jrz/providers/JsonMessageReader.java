@@ -1,4 +1,4 @@
-package com.pteyer.jrz.providers;
+package org.accidia.jrz.providers;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;

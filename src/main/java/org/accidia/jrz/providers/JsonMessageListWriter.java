@@ -1,4 +1,4 @@
-package com.pteyer.jrz.providers;
+package org.accidia.jrz.providers;
 
 import com.google.protobuf.Message;
 import com.googlecode.protobuf.format.JsonFormat;
@@ -16,7 +16,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class JsonMessageListWriter implements MessageBodyWriter<List<? extends Message>> {
-    private static final Logger logger = LoggerFactory.getLogger(JsonMessageListWriter.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public boolean isWriteable(final Class<?> type, final Type genericType,
                                final Annotation[] annotations,

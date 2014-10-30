@@ -1,10 +1,10 @@
-package com.pteyer.jrz.services.impl;
+package org.accidia.jrz.services.impl;
 
-import com.pteyer.jrz.services.IGuidService;
+import org.accidia.jrz.services.IGuidService;
 
 import java.util.UUID;
 
-import static com.pteyer.jrz.protos.JrzProtos.Guid;
+import static org.accidia.jrz.protos.JrzProtos.Guid;
 
 public class GuidServiceImpl implements IGuidService {
     @Override

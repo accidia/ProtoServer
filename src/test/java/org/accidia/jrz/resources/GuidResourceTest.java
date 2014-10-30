@@ -1,11 +1,11 @@
-package com.pteyer.jrz.resources;
+package org.accidia.jrz.resources;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
-import com.pteyer.jrz.IJrzApplication;
-import com.pteyer.jrz.JrzApplicationTestGuid;
+import org.accidia.jrz.IJrzApplication;
+import org.accidia.jrz.JrzApplicationTestGuid;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

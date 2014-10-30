@@ -1,4 +1,4 @@
-package com.pteyer.jrz;
+package org.accidia.jrz;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -9,7 +9,7 @@ public class JrzApplicationTestGuid extends AbstractBaseJrzApplication {
 
     @Override
     protected ResourceConfig getResourceConfig() {
-        return new ResourceConfig().packages("com.pteyer.jrz");
+        return new ResourceConfig().packages("org.accidia.jrz");
     }
 
     @Override
