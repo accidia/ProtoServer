@@ -15,14 +15,38 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ResourceConfig resourceConfig = getResourceConfig()
-            .packages("com.accidia.jrz");
-    private Server server = JettyHttpContainerFactory.createServer(getBaseUri(),
-            this.resourceConfig, false);
+            .packages("com.accidia.jrz.resources");
+
+    private Server server = JettyHttpContainerFactory.createServer(
+            getBaseUri(), this.resourceConfig,
+            false  // do not start
+    );
 
     @Override
     public void startServer() throws JrzException {
-        logger.info("starting server at {}", getBaseUri().toString());
         checkState(this.server != null, "null server");
+        doStartServer();
+    }
+
+    @Override
+    public void joinOnServer() throws JrzException {
+        checkState(this.server != null, "null server");
+        doJoinOnServer();
+    }
+
+    @Override
+    public void stopServer() throws JrzException {
+        checkState(this.server != null, "null server");
+        doStopServer();
+    }
+
+    @Override
+    public Server getServer() {
+        return this.server;
+    }
+
+    protected void doStartServer() throws JrzException {
+        logger.info("starting jrz server at {}", getBaseUri().toString());
         try {
             this.server.start();
         } catch (Exception e) {
@@ -31,10 +55,8 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
         }
     }
 
-    @Override
-    public void joinOnServer() throws JrzException {
+    protected void doJoinOnServer() throws JrzException {
         logger.info("joining on server");
-        checkState(this.server != null, "null server");
         try {
             this.server.join();
         } catch (Exception e) {
@@ -43,10 +65,8 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
         }
     }
 
-    @Override
-    public void stopServer() throws JrzException {
+    protected void doStopServer() throws JrzException {
         logger.info("stopping server");
-        checkState(this.server != null, "null server");
         try {
             this.server.getServer().stop();
             this.server.destroy();
@@ -55,12 +75,6 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
             throw new JrzException(e);
         }
     }
-
-    @Override
-    public Server getServer() {
-        return this.server;
-    }
-
 
     protected abstract ResourceConfig getResourceConfig();
     protected abstract URI getBaseUri();

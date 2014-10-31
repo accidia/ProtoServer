@@ -4,37 +4,49 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import com.google.common.util.concurrent.Uninterruptibles;
 import org.accidia.jrz.IJrzApplication;
 import org.accidia.jrz.JrzApplicationTestGuid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertNotNull;
 
 public class GuidResourceTest {
 
-    private WebTarget target;
-    private IJrzApplication application = new JrzApplicationTestGuid();
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final IJrzApplication application;
+
+    public GuidResourceTest() {
+        this.application = new JrzApplicationTestGuid();
+    }
 
     @BeforeClass
     public void setUp() throws Exception {
+        logger.debug("setUp");
         this.application.startServer();
-        final Client client = ClientBuilder.newClient();
-        this.target = client.target(JrzApplicationTestGuid.BASE_URI);
+        while (!this.application.getServer().isStarted()) {
+            logger.debug("server is not started yet; sleeping for a second...");
+            Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS);
+        }
     }
 
     @AfterClass
     public void tearDown() throws Exception {
+        logger.debug("tearDown");
         this.application.stopServer();
     }
 
-    /**
-     * Test to see that the message "Got it!" is sent in the response.
-     */
     @Test
-    public void testGetIt() {
-        String responseMsg = this.target.path(".guid").request().get(String.class);
+    public void testGetGuid() {
+        final WebTarget target = ClientBuilder.newClient().target(JrzApplicationTestGuid.BASE_URI);
+        final String responseMsg = target.path(".guid").request().get(String.class);
         assertNotNull(responseMsg);
     }
 }
+
