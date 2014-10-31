@@ -2,6 +2,8 @@ package org.accidia.jrz.providers;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
@@ -18,6 +20,8 @@ import java.lang.reflect.Type;
 @Provider
 @Consumes(org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF)
 public class ProtobufMessageReader implements MessageBodyReader<Message> {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public boolean isReadable(final Class<?> type,
                               final Type genericType,
@@ -38,6 +42,7 @@ public class ProtobufMessageReader implements MessageBodyReader<Message> {
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
             return builder.mergeFrom(entityStream).buildPartial();
         } catch (Exception e) {
+            logger.error("");
             throw new WebApplicationException("caught an exception", e);
         }
     }

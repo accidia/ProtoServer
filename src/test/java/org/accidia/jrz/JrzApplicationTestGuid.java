@@ -8,12 +8,12 @@ public class JrzApplicationTestGuid extends AbstractBaseJrzApplication {
     public static final String BASE_URI = "http://0.0.0.0:3891/";
 
     @Override
-    protected ResourceConfig getResourceConfig() {
-        return new ResourceConfig().packages("org.accidia.jrz");
+    public ResourceConfig getResourceConfig() {
+        return new ResourceConfig();
     }
 
     @Override
-    protected URI getBaseUri() {
+    public URI getBaseUri() {
         return URI.create(BASE_URI);
     }
 }

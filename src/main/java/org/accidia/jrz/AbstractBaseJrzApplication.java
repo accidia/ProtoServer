@@ -7,15 +7,13 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URI;
-
 import static com.google.common.base.Preconditions.checkState;
 
 public abstract class AbstractBaseJrzApplication implements IJrzApplication {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ResourceConfig resourceConfig = getResourceConfig()
-            .packages("com.accidia.jrz.resources");
+            .packages("org.accidia.jrz");
 
     private Server server = JettyHttpContainerFactory.createServer(
             getBaseUri(), this.resourceConfig,
@@ -75,8 +73,5 @@ public abstract class AbstractBaseJrzApplication implements IJrzApplication {
             throw new JrzException(e);
         }
     }
-
-    protected abstract ResourceConfig getResourceConfig();
-    protected abstract URI getBaseUri();
 }
 

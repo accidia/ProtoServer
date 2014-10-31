@@ -28,7 +28,11 @@
         <testng.version>6.1.1</testng.version>
 
         <mvn.plugins.compiler.version>2.5.1</mvn.plugins.compiler.version>
-        <mvn.plugins.exec.version>1.2.1</mvn.plugins.exec.version>
+        <mvn.plugins.javadoc.version>2.10.1</mvn.plugins.javadoc.version>
+        <mvn.plugins.resources.version>2.7</mvn.plugins.resources.version>
+        <mvn.plugins.antrun.version>1.7</mvn.plugins.antrun.version>
+        <mvn.plugins.gpg.version>1.5</mvn.plugins.gpg.version>
+        <mvn.plugins.source.version>2.4</mvn.plugins.source.version>
     </properties>
 
     <licenses>
@@ -114,7 +118,7 @@
 
     <build>
         <plugins>
-            <!--INCLUDE PROTOS-->
+            <!--COMPILER-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -129,11 +133,11 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!--INCLUDE SOURCE-->
+            <!--SOURCE-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
+                <version>${mvn.plugins.source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -154,9 +158,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${mvn.plugins.javadoc.version}</version>
                 <configuration>
                     <outputDirectory>apidocs/</outputDirectory>
-                    <author>false</author>
+                    <author>true</author>
                     <show>public</show>
                     <source>${source.version}</source>
                     <version>true</version>
@@ -172,16 +177,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--RESOURCES PROTO-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <parallel>classes</parallel>
-                    <threadCount>4</threadCount>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>${mvn.plugins.resources.version}</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -201,20 +201,23 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--ANTRUN PROTOC-->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>${mvn.plugins.antrun.version}</version>
                 <executions>
                     <execution>
                         <id>generate-sources</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <mkdir dir="target/generated-sources" />
                                 <exec failonerror="true" executable="protoc">
                                     <arg value="--java_out=target/generated-sources" />
                                     <arg value="src/main/resources/protos/jrz.proto" />
                                 </exec>
-                            </tasks>
+                            </target>
                             <sourceRoot>target/generated-sources</sourceRoot>
                         </configuration>
                         <goals>
@@ -223,46 +226,11 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${mvn.plugins.exec.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.accidia.jrz.AbstractBaseJrzApplication</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.accidia.jrz.AbstractBaseJrzApplication</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--GPG-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
+                <version>${mvn.plugins.gpg.version}</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
