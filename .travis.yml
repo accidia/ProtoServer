@@ -25,4 +25,4 @@ before_install:
   - pwd
 
 script:
-  - mvn clean compile test -Dmaven.javadoc.skip=true -Dsource.skip=true
+  - mvn clean compile test -Dmaven.javadoc.skip=true -Dsource.skip=true -Dgpg.skip=true
