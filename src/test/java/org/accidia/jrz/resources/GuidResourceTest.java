@@ -44,8 +44,19 @@ public class GuidResourceTest {
 
     @Test
     public void testGetGuid() {
+        logger.debug("testGetGuid");
+
         final WebTarget target = ClientBuilder.newClient().target(JrzApplicationTestGuid.BASE_URI);
         final String responseMsg = target.path(".guid").request().get(String.class);
+        assertNotNull(responseMsg);
+    }
+
+    @Test
+    public void testGetStatus() {
+        logger.debug("testGetStatus");
+
+        final WebTarget target = ClientBuilder.newClient().target(JrzApplicationTestGuid.BASE_URI);
+        final String responseMsg = target.path(".status").request().get(String.class);
         assertNotNull(responseMsg);
     }
 }
