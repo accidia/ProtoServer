@@ -4,8 +4,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import java.net.URI;
 
-public class JrzApplicationTestGuid extends AbstractBaseJrzApplication {
-    public static final String BASE_URI = "http://0.0.0.0:3891/";
+public class JrzTestApplication extends AbstractBaseJrzApplication {
+    public static final URI BASE_URI = URI.create("http://localhost:3891/");
 
     @Override
     public ResourceConfig getResourceConfig() {
@@ -14,6 +14,6 @@ public class JrzApplicationTestGuid extends AbstractBaseJrzApplication {
 
     @Override
     public URI getBaseUri() {
-        return URI.create(BASE_URI);
+        return BASE_URI;
     }
 }
