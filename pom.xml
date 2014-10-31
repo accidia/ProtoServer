@@ -18,7 +18,6 @@
         <source.version>1.7</source.version>
         <target.version>1.7</target.version>
         <jersey.version>2.11</jersey.version>
-        <jersey.container.jetty.version>2.11</jersey.container.jetty.version>
         <protobuf.version>2.5.0</protobuf.version>
         <protobuf.java.version>1.2</protobuf.java.version>
         <commons.beanutils.version>1.9.2</commons.beanutils.version>
@@ -81,7 +80,13 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-jetty-http</artifactId>
-            <version>${jersey.container.jetty.version}</version>
+            <version>${jersey.version}</version>
+        </dependency>
+        <!--JERSEY CLIENT-->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey.version}</version>
         </dependency>
         <!--JSON SUPPORT-->
         <dependency>
