@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.lang.reflect.Type;
 
 @Provider
 @Consumes(org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF)
-public class ProtobufMessageReader implements MessageBodyReader<Message> {
+public class ProtobufMessageReader<ProtobufType extends Message> implements MessageBodyReader<ProtobufType> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
@@ -31,19 +32,20 @@ public class ProtobufMessageReader implements MessageBodyReader<Message> {
     }
 
     @Override
-    public Message readFrom(final Class<Message> type,
+    public ProtobufType readFrom(final Class<ProtobufType> type,
                             final Type genericType,
                             final Annotation[] annotations,
                             final MediaType mediaType,
                             final MultivaluedMap<String, String> httpHeaders,
-                            final InputStream entityStream) throws IOException, WebApplicationException {
+                            final InputStream inputStream) throws IOException, WebApplicationException {
         try {
             final Method newBuilder = type.getMethod("newBuilder");
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
-            return builder.mergeFrom(entityStream).buildPartial();
+            return (ProtobufType) builder.mergeFrom(inputStream).buildPartial();
         } catch (Exception e) {
-            logger.error("");
-            throw new WebApplicationException("caught an exception", e);
+            logger.error("exception caught on protobuf message body reader -> rethrowing ", e);
+            throw new WebApplicationException("exception caught on protobuf message body reader", e,
+                    Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
 }

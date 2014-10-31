@@ -4,16 +4,17 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
-import com.google.common.util.concurrent.Uninterruptibles;
 import org.accidia.jrz.IJrzApplication;
 import org.accidia.jrz.JrzApplicationTestGuid;
+import org.accidia.jrz.misc.MediaType;
+import org.accidia.jrz.protos.JrzProtos;
+import org.accidia.jrz.providers.ProtobufMessageReader;
+import org.accidia.jrz.providers.ProtobufMessageWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertNotNull;
 
@@ -21,19 +22,20 @@ public class GuidResourceTest {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final IJrzApplication application;
+    private final WebTarget webTarget;
 
     public GuidResourceTest() {
         this.application = new JrzApplicationTestGuid();
+        this.webTarget = ClientBuilder.newClient()
+                .register(ProtobufMessageReader.class)
+                .register(ProtobufMessageWriter.class)
+                .target(JrzApplicationTestGuid.BASE_URI);
     }
 
     @BeforeClass
     public void setUp() throws Exception {
         logger.debug("setUp");
         this.application.startServer();
-        while (!this.application.getServer().isStarted()) {
-            logger.debug("server is not started yet; sleeping for a second...");
-            Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS);
-        }
     }
 
     @AfterClass
@@ -46,8 +48,8 @@ public class GuidResourceTest {
     public void testGetGuid() {
         logger.debug("testGetGuid");
 
-        final WebTarget target = ClientBuilder.newClient().target(JrzApplicationTestGuid.BASE_URI);
-        final String responseMsg = target.path(".guid").request().get(String.class);
+        final JrzProtos.Guid responseMsg = this.webTarget.path(".guid")
+                .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
         assertNotNull(responseMsg);
     }
 
@@ -55,9 +57,9 @@ public class GuidResourceTest {
     public void testGetStatus() {
         logger.debug("testGetStatus");
 
-        final WebTarget target = ClientBuilder.newClient().target(JrzApplicationTestGuid.BASE_URI);
-        final String responseMsg = target.path(".status").request().get(String.class);
-        assertNotNull(responseMsg);
+        final JrzProtos.Status status = this.webTarget.path(".status")
+                .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Status.class);
+        assertNotNull(status);
     }
 }
 
