@@ -4,6 +4,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import com.google.common.base.Strings;
 import org.accidia.jrz.IJrzApplication;
 import org.accidia.jrz.JrzApplicationTestGuid;
 import org.accidia.jrz.misc.MediaType;
@@ -16,7 +17,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 public class GuidResourceTest {
 
@@ -48,9 +51,11 @@ public class GuidResourceTest {
     public void testGetGuid() {
         logger.debug("testGetGuid");
 
-        final JrzProtos.Guid responseMsg = this.webTarget.path(".guid")
+        final JrzProtos.Guid guid = this.webTarget.path(".guid")
                 .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
-        assertNotNull(responseMsg);
+        assertNotNull(guid);
+        assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
+        assertTrue(guid.getTimestampUtc() <= System.currentTimeMillis());
     }
 
     @Test

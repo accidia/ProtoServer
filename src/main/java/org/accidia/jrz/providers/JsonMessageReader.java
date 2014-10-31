@@ -36,11 +36,11 @@ public class JsonMessageReader implements MessageBodyReader<Message> {
 
     @Override
     public Message readFrom(final Class type,
-                           final Type genericType,
-                           final Annotation[] annotations,
-                           final MediaType mediaType,
-                           final MultivaluedMap httpHeaders,
-                           final InputStream entityStream) throws IOException, WebApplicationException {
+                            final Type genericType,
+                            final Annotation[] annotations,
+                            final MediaType mediaType,
+                            final MultivaluedMap httpHeaders,
+                            final InputStream entityStream) throws IOException, WebApplicationException {
         try {
             final Method newBuilder = type.getMethod("newBuilder");
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
