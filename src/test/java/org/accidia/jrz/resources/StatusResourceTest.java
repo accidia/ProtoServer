@@ -19,10 +19,11 @@ import static org.testng.Assert.*;
 
 public class StatusResourceTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final IJrzApplication application = new JrzTestApplication();
+    private final IJrzApplication application;
     private final WebTarget webTarget;
 
     public StatusResourceTest() {
+        this.application = new JrzTestApplication();
         this.webTarget = ClientBuilder.newClient()
                 .register(ProtobufMessageReader.class)
                 .register(ProtobufMessageWriter.class)
