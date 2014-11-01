@@ -2,9 +2,6 @@ jrz
 ===
 [![Build Status](https://travis-ci.org/accidia/jrz.png?branch=master)](https://travis-ci.org/accidia/jrz)
 
-## What is 'jrz', and why?
-
-
 
 ## How to use?
 
@@ -21,6 +18,92 @@ Or use it as a maven dependency:
     </dependency>
 </dependencies>
 ```
+
+Define the data model in protocol buffers:
+
+```
+option java_package = "org.accidia.jrz.sample.protos";
+option java_outer_classname = "JrzSampleProtos";
+
+message Guid {
+    required string guid = 1;
+    required uint64 timestamp_utc = 2;
+}
+
+```
+
+Define the service interfaces:
+
+```
+package org.accidia.jrz.sample.services;
+
+import static org.accidia.jrz.sample.protos.JrzProtos.Guid;
+
+public interface IGuidService {
+
+    // returns an instance of Guid
+    Guid getGuid();
+}
+```
+
+Implement services:
+
+```
+package org.accidia.jrz.sample.services.impl;
+
+import org.accidia.jrz.sample.services.IGuidService;
+
+import java.util.UUID;
+
+import static org.accidia.jrz.sample.protos.JrzProtos.Guid;
+
+public class GuidServiceImpl implements IGuidService {
+
+    // construct a guid object: 
+    //   assign a random uuid for guid
+    //   assign the current time for timestamp
+    @Override
+    public Guid getGuid() {
+        return Guid.newBuilder()
+                .setGuid(UUID.randomUUID().toString())
+                .setTimestampUtc(System.currentTimeMillis())
+                .build();
+    }
+}
+
+```
+
+Define and implement a resource endpoint:
+
+```
+package org.accidia.jrz.resources;
+
+import org.accidia.jrz.services.impl.GuidServiceImpl;
+import org.accidia.jrz.services.IGuidService;
+import org.accidia.jrz.protos.JrzProtos;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/v1/guid")
+public class GuidResource {
+    private IGuidService service;
+
+    public GuidResource() {
+        this.service = new GuidServiceImpl();
+    }
+
+    @GET
+    @Produces({"application/json", "application/x-protobuf;qs=0.5"})
+    public JrzProtos.Guid getGuid() {
+        return this.service.getGuid();
+    }
+}
+
+```
+
 
 Create a micro-service instance:
 
@@ -44,6 +127,14 @@ public class SampleApplication extends AbstractBaseJrzApplication {
     @Override
     public URI getBaseUri() {
         return BASE_URI;
+    }
+    
+    public static void main(final String[] args) {
+        final IJrzApplication application = new SampleApplication();
+        application.startServer();
+        application.joinOnServer();
+        
+        application.stopServer();
     }
 }
 ```
