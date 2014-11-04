@@ -21,7 +21,7 @@ Or use it as a maven dependency:
 
 Define the data model in protocol buffers:
 
-```java
+```protobuf
 option java_package = "org.accidia.jrz.sample.protos";
 option java_outer_classname = "JrzSampleProtos";
 
@@ -33,7 +33,7 @@ message Guid {
 
 Define the service interfaces:
 
-```
+```java
 package org.accidia.jrz.sample.services;
 
 import static org.accidia.jrz.sample.protos.JrzProtos.Guid;
@@ -47,7 +47,7 @@ public interface IGuidService {
 
 Implement services:
 
-```
+```java
 package org.accidia.jrz.sample.services.impl;
 
 import org.accidia.jrz.sample.services.IGuidService;
@@ -73,7 +73,7 @@ public class GuidServiceImpl implements IGuidService {
 
 Define and implement a resource endpoint:
 
-```
+```java
 package org.accidia.jrz.resources;
 
 import org.accidia.jrz.services.impl.GuidServiceImpl;
@@ -104,7 +104,7 @@ public class GuidResource {
 
 Create a micro-service instance:
 
-```
+```java
 package org.accidia.jrz;
 
 import org.glassfish.jersey.server.ResourceConfig;
