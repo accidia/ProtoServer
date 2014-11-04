@@ -9,7 +9,7 @@ Latest build: https://github.com/accidia/jrz/archive/master.zip
 
 Or use it as a maven dependency:
 
-```
+```xml
 <dependencies>
     <dependency>
         <groupId>org.accidia</groupId>
@@ -21,7 +21,7 @@ Or use it as a maven dependency:
 
 Define the data model in protocol buffers:
 
-```
+```java
 option java_package = "org.accidia.jrz.sample.protos";
 option java_outer_classname = "JrzSampleProtos";
 
@@ -29,7 +29,6 @@ message Guid {
     required string guid = 1;
     required uint64 timestamp_utc = 2;
 }
-
 ```
 
 Define the service interfaces:
@@ -70,7 +69,6 @@ public class GuidServiceImpl implements IGuidService {
                 .build();
     }
 }
-
 ```
 
 Define and implement a resource endpoint:
@@ -101,7 +99,6 @@ public class GuidResource {
         return this.service.getGuid();
     }
 }
-
 ```
 
 
