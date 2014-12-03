@@ -10,13 +10,11 @@ Latest build: https://github.com/accidia/jrz/archive/master.zip
 Or use it as a maven dependency:
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.accidia</groupId>
-        <artifactId>jrz</artifactId>
-        <version>0.0.13</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.accidia</groupId>
+    <artifactId>jrz</artifactId>
+    <version>0.0.13</version>
+</dependency>
 ```
 
 Define the data model in protocol buffers:
