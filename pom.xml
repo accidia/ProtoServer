@@ -5,7 +5,7 @@
     <groupId>org.accidia</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.13</version>
+    <version>0.0.14</version>
     <name>jrz</name>
     <url>https://github.com/accidia/jrz</url>
 
@@ -17,7 +17,7 @@
         <!--VERSIONS-->
         <source.version>1.7</source.version>
         <target.version>1.7</target.version>
-        <jersey.version>2.11</jersey.version>
+        <jersey.version>2.13</jersey.version>
         <protobuf.version>2.5.0</protobuf.version>
         <protobuf.java.version>1.2</protobuf.java.version>
         <commons.beanutils.version>1.9.2</commons.beanutils.version>
