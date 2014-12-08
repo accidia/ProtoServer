@@ -24,7 +24,8 @@ public class ProtobufMessageListWriter implements MessageBodyWriter<List<Message
                                final Type genericType,
                                final Annotation[] annotations,
                                final MediaType mediaType) {
-        return MediaTypes.APPLICATION_PROTOBUF.equals(mediaType.toString().trim().toLowerCase());
+        // true if media type is 'application/x-protobuf'
+        return MediaTypes.APPLICATION_PROTOBUF.equalsIgnoreCase(mediaType.toString().trim());
     }
 
     @Override
