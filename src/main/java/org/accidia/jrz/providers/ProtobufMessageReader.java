@@ -19,9 +19,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+/**
+ * Message body reader implementation for reading Message bytes
+ */
 @Provider
 @Consumes(MediaTypes.APPLICATION_PROTOBUF)
-public class ProtobufMessageReader<ProtobufType extends Message> implements MessageBodyReader<ProtobufType> {
+public class ProtobufMessageReader implements MessageBodyReader<Message> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
@@ -33,7 +36,7 @@ public class ProtobufMessageReader<ProtobufType extends Message> implements Mess
     }
 
     @Override
-    public ProtobufType readFrom(final Class<ProtobufType> type,
+    public Message readFrom(final Class<Message> type,
                             final Type genericType,
                             final Annotation[] annotations,
                             final MediaType mediaType,
@@ -42,7 +45,7 @@ public class ProtobufMessageReader<ProtobufType extends Message> implements Mess
         try {
             final Method newBuilder = type.getMethod("newBuilder");
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
-            return (ProtobufType) builder.mergeFrom(inputStream).buildPartial();
+            return builder.mergeFrom(inputStream).buildPartial();
         } catch (Exception e) {
             logger.error("exception caught on protobuf message body reader -> rethrowing ", e);
             throw new WebApplicationException("exception caught on protobuf message body reader", e,

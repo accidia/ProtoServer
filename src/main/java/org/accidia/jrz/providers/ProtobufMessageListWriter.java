@@ -20,15 +20,19 @@ import java.util.List;
 public class ProtobufMessageListWriter implements MessageBodyWriter<List<Message>> {
 
     @Override
-    public boolean isWriteable(final Class type,
+    public boolean isWriteable(final Class<?> type,
                                final Type genericType,
                                final Annotation[] annotations,
                                final MediaType mediaType) {
-        return Message.class.isAssignableFrom(type);
+        return MediaTypes.APPLICATION_PROTOBUF.equals(mediaType.toString().trim().toLowerCase());
     }
 
     @Override
-    public long getSize(List<Message> messages, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
+    public long getSize(final List<Message> messages,
+                        final Class<?> clazz,
+                        final Type type,
+                        final Annotation[] annotations,
+                        final MediaType mediaType) {
         long size = 0;
         for (final Message message : messages) {
             size += message.getSerializedSize();
@@ -37,8 +41,10 @@ public class ProtobufMessageListWriter implements MessageBodyWriter<List<Message
     }
 
     @Override
-    public void writeTo(final List<Message> messages, final Class<?> clazz,
-                        final Type type, final Annotation[] annotations,
+    public void writeTo(final List<Message> messages,
+                        final Class<?> clazz,
+                        final Type type,
+                        final Annotation[] annotations,
                         final MediaType mediaType,
                         final MultivaluedMap<String, Object> stringObjectMultivaluedMap,
                         final OutputStream outputStream) throws IOException, WebApplicationException {

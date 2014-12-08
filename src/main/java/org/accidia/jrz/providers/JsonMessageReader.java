@@ -13,6 +13,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
@@ -22,6 +23,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+/**
+ * Message body reader implementation for reading converting Json to Message
+ */
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
 public class JsonMessageReader implements MessageBodyReader<Message> {
@@ -30,7 +34,10 @@ public class JsonMessageReader implements MessageBodyReader<Message> {
     private final ExtensionRegistry extensionRegistry = ExtensionRegistry.newInstance();
 
     @Override
-    public boolean isReadable(Class type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+    public boolean isReadable(final Class type,
+                              final Type genericType,
+                              final Annotation[] annotations,
+                              final MediaType mediaType) {
         return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
     }
 
@@ -48,8 +55,9 @@ public class JsonMessageReader implements MessageBodyReader<Message> {
             JsonFormat.merge(data, this.extensionRegistry, builder);
             return builder.buildPartial();
         } catch (Exception e) {
-            logger.warn("caught an exception", e);
-            throw new WebApplicationException(e);
+            logger.warn("exception caught while reading message: ", e);
+            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
 }
+

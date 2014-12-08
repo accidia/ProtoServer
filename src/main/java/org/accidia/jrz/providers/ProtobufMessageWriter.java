@@ -19,7 +19,7 @@ import java.lang.reflect.Type;
 public class ProtobufMessageWriter implements MessageBodyWriter<Message> {
 
     @Override
-    public boolean isWriteable(final Class type,
+    public boolean isWriteable(final Class<?> type,
                                final Type genericType,
                                final Annotation[] annotations,
                                final MediaType mediaType) {
@@ -28,7 +28,7 @@ public class ProtobufMessageWriter implements MessageBodyWriter<Message> {
 
     @Override
     public long getSize(final Message message,
-                        final Class type,
+                        final Class<?> type,
                         final Type genericType,
                         final Annotation[] annotations,
                         final MediaType mediaType) {
