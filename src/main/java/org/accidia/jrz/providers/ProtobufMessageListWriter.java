@@ -13,10 +13,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.List;
 
 @Provider
 @Produces(MediaTypes.APPLICATION_PROTOBUF)
-public class ProtobufMessageWriter implements MessageBodyWriter<Message> {
+public class ProtobufMessageListWriter implements MessageBodyWriter<List<Message>> {
 
     @Override
     public boolean isWriteable(final Class type,
@@ -27,22 +28,22 @@ public class ProtobufMessageWriter implements MessageBodyWriter<Message> {
     }
 
     @Override
-    public long getSize(final Message message,
-                        final Class type,
-                        final Type genericType,
-                        final Annotation[] annotations,
-                        final MediaType mediaType) {
-        return message.getSerializedSize();
+    public long getSize(List<Message> messages, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
+        long size = 0;
+        for (final Message message : messages) {
+            size += message.getSerializedSize();
+        }
+        return size;
     }
 
     @Override
-    public void writeTo(final Message message,
-                        final Class type,
-                        final Type genericType,
-                        final Annotation[] annotations,
+    public void writeTo(final List<Message> messages, final Class<?> clazz,
+                        final Type type, final Annotation[] annotations,
                         final MediaType mediaType,
-                        final MultivaluedMap httpHeaders,
-                        final OutputStream entityStream) throws IOException, WebApplicationException {
-        entityStream.write(message.toByteArray());
+                        final MultivaluedMap<String, Object> stringObjectMultivaluedMap,
+                        final OutputStream outputStream) throws IOException, WebApplicationException {
+        for (final Message message : messages) {
+            outputStream.write(message.toByteArray());
+        }
     }
 }

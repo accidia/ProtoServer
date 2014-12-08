@@ -6,7 +6,7 @@ import javax.ws.rs.client.WebTarget;
 import com.google.common.base.Strings;
 import org.accidia.jrz.IJrzApplication;
 import org.accidia.jrz.JrzTestApplication;
-import org.accidia.jrz.misc.MediaType;
+import org.accidia.jrz.misc.MediaTypes;
 import org.accidia.jrz.protos.JrzProtos;
 import org.accidia.jrz.providers.ProtobufMessageReader;
 import org.accidia.jrz.providers.ProtobufMessageWriter;
@@ -51,7 +51,7 @@ public class GuidResourceTest {
         logger.debug("testGetGuid()");
 
         final JrzProtos.Guid guid = this.webTarget.path(".guid")
-                .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
+                .request(MediaTypes.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
         assertNotNull(guid);
         assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
         assertTrue(guid.getTimestampUtc() <= System.currentTimeMillis());
@@ -63,7 +63,7 @@ public class GuidResourceTest {
         logger.debug("testGetGuidAsync()");
 
         final JrzProtos.Guid guid = this.webTarget.path(".guid/async")
-                .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
+                .request(MediaTypes.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
         assertNotNull(guid);
         assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
         assertTrue(guid.getTimestampUtc() <= System.currentTimeMillis());

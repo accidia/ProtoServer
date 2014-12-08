@@ -1,6 +1,7 @@
 package org.accidia.jrz.resources;
 
 import org.accidia.jrz.misc.AsyncResponses;
+import org.accidia.jrz.misc.MediaTypes;
 import org.accidia.jrz.services.impl.GuidServiceImpl;
 import org.accidia.jrz.services.IGuidService;
 import org.accidia.jrz.protos.JrzProtos;
@@ -32,14 +33,14 @@ public class GuidResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces({MediaType.APPLICATION_JSON, org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF + ";qs=0.5"})
+    @Produces({MediaType.APPLICATION_JSON, MediaTypes.APPLICATION_PROTOBUF + ";qs=0.5"})
     public JrzProtos.Guid getGuid() {
         return this.service.getGuid();
     }
 
     @GET
     @Path("/async")
-    @Produces({MediaType.APPLICATION_JSON, org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF + ";qs=0.5"})
+    @Produces({MediaType.APPLICATION_JSON, MediaTypes.APPLICATION_PROTOBUF + ";qs=0.5"})
     @ManagedAsync
     public void getGuidAsync(@Suspended final AsyncResponse asyncResponse) {
         AsyncResponses.addTimeoutHandler(asyncResponse, 2, TimeUnit.SECONDS);

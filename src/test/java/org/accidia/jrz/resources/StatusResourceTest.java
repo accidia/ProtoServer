@@ -2,7 +2,7 @@ package org.accidia.jrz.resources;
 
 import org.accidia.jrz.IJrzApplication;
 import org.accidia.jrz.JrzTestApplication;
-import org.accidia.jrz.misc.MediaType;
+import org.accidia.jrz.misc.MediaTypes;
 import org.accidia.jrz.protos.JrzProtos;
 import org.accidia.jrz.providers.ProtobufMessageReader;
 import org.accidia.jrz.providers.ProtobufMessageWriter;
@@ -47,7 +47,7 @@ public class StatusResourceTest {
         logger.debug("testGetStatus");
 
         final JrzProtos.Status status = this.webTarget.path(".status")
-                .request(MediaType.APPLICATION_PROTOBUF)
+                .request(MediaTypes.APPLICATION_PROTOBUF)
                 .get(JrzProtos.Status.class);
         assertNotNull(status);
         logger.info("status recieved: {}", status);

@@ -2,6 +2,7 @@ package org.accidia.jrz.providers;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
+import org.accidia.jrz.misc.MediaTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 @Provider
-@Consumes(org.accidia.jrz.misc.MediaType.APPLICATION_PROTOBUF)
+@Consumes(MediaTypes.APPLICATION_PROTOBUF)
 public class ProtobufMessageReader<ProtobufType extends Message> implements MessageBodyReader<ProtobufType> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

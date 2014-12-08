@@ -14,6 +14,9 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+/**
+ * Message body writer for objects of type Message to Json
+ */
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 public class JsonMessageWriter implements MessageBodyWriter<Message> {

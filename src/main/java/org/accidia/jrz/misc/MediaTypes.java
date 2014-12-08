@@ -1,5 +1,5 @@
 package org.accidia.jrz.misc;
 
-public class MediaType {
+public class MediaTypes {
     public final static String APPLICATION_PROTOBUF = "application/x-protobuf";
 }
