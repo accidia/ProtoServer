@@ -74,8 +74,8 @@ Define and implement a resource endpoint:
 ```java
 package org.accidia.jrz.resources;
 
-import org.accidia.jrz.services.impl.GuidServiceImpl;
-import org.accidia.jrz.services.IGuidService;
+import GuidServiceImpl;
+import IGuidService;
 import org.accidia.jrz.protos.JrzProtos;
 
 import javax.ws.rs.GET;
