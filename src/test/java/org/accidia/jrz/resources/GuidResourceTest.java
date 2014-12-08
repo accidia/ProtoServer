@@ -48,9 +48,21 @@ public class GuidResourceTest {
 
     @Test
     public void testGetGuid() {
-        logger.debug("testGetGuid");
+        logger.debug("testGetGuid()");
 
         final JrzProtos.Guid guid = this.webTarget.path(".guid")
+                .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
+        assertNotNull(guid);
+        assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
+        assertTrue(guid.getTimestampUtc() <= System.currentTimeMillis());
+        logger.info("guid received: {}", guid);
+    }
+
+    @Test
+    public void testGetGuidAsync() {
+        logger.debug("testGetGuidAsync()");
+
+        final JrzProtos.Guid guid = this.webTarget.path(".guid/async")
                 .request(MediaType.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
         assertNotNull(guid);
         assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
