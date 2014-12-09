@@ -64,7 +64,7 @@ public class JsonMessageListWriter implements MessageBodyWriter<List<Message>> {
             return "[]";
         }
 
-        final StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder("[");
         boolean first = true;
         for (final Message message : messages) {
             if (first) {

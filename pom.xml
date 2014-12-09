@@ -5,7 +5,7 @@
     <groupId>org.accidia</groupId>
     <artifactId>jrz</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.17</version>
+    <version>0.0.18</version>
     <name>jrz</name>
     <url>https://github.com/accidia/jrz</url>
 
