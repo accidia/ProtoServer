@@ -13,7 +13,7 @@ Or use it as a maven dependency:
 <dependency>
     <groupId>org.accidia</groupId>
     <artifactId>jrz</artifactId>
-    <version>0.0.13</version>
+    <version>0.0.18</version>
 </dependency>
 ```
 
