@@ -1,15 +1,15 @@
-package org.accidia.jrz.resources;
+package org.accidia.protoserver.resources;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import com.google.common.base.Strings;
-import org.accidia.jrz.IJrzApplication;
-import org.accidia.jrz.JrzTestApplication;
-import org.accidia.jrz.misc.MediaTypes;
-import org.accidia.jrz.protos.JrzProtos;
-import org.accidia.jrz.providers.ProtobufMessageReader;
-import org.accidia.jrz.providers.ProtobufMessageWriter;
+import org.accidia.protoserver.IProtoServerApplication;
+import org.accidia.protoserver.ProtoServerTestApplication;
+import org.accidia.protoserver.misc.MediaTypes;
+import org.accidia.protoserver.protos.ProtoServerProtos;
+import org.accidia.protoserver.providers.ProtobufMessageReader;
+import org.accidia.protoserver.providers.ProtobufMessageWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
@@ -23,15 +23,15 @@ import static org.testng.Assert.assertTrue;
 public class GuidResourceTest {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final IJrzApplication application;
+    private final IProtoServerApplication application;
     private final WebTarget webTarget;
 
     public GuidResourceTest() {
-        this.application = new JrzTestApplication();
+        this.application = new ProtoServerTestApplication();
         this.webTarget = ClientBuilder.newClient()
                 .register(ProtobufMessageReader.class)
                 .register(ProtobufMessageWriter.class)
-                .target(JrzTestApplication.BASE_URI);
+                .target(ProtoServerTestApplication.BASE_URI);
     }
 
     @BeforeClass
@@ -50,8 +50,8 @@ public class GuidResourceTest {
     public void testGetGuid() {
         logger.debug("testGetGuid()");
 
-        final JrzProtos.Guid guid = this.webTarget.path(".guid")
-                .request(MediaTypes.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
+        final ProtoServerProtos.Guid guid = this.webTarget.path(".guid")
+                .request(MediaTypes.APPLICATION_PROTOBUF).get(ProtoServerProtos.Guid.class);
         assertNotNull(guid);
         assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
         assertTrue(guid.getTimestampUtc() <= System.currentTimeMillis());
@@ -62,8 +62,8 @@ public class GuidResourceTest {
     public void testGetGuidAsync() {
         logger.debug("testGetGuidAsync()");
 
-        final JrzProtos.Guid guid = this.webTarget.path(".guid/async")
-                .request(MediaTypes.APPLICATION_PROTOBUF).get(JrzProtos.Guid.class);
+        final ProtoServerProtos.Guid guid = this.webTarget.path(".guid/async")
+                .request(MediaTypes.APPLICATION_PROTOBUF).get(ProtoServerProtos.Guid.class);
         assertNotNull(guid);
         assertFalse(Strings.isNullOrEmpty(guid.getGuid()));
         assertTrue(guid.getTimestampUtc() <= System.currentTimeMillis());

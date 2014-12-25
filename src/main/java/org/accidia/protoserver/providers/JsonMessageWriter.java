@@ -1,4 +1,4 @@
-package org.accidia.jrz.providers;
+package org.accidia.protoserver.providers;
 
 import com.google.protobuf.Message;
 import com.googlecode.protobuf.format.JsonFormat;

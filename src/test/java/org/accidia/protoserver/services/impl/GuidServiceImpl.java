@@ -1,15 +1,15 @@
-package org.accidia.jrz.services.impl;
+package org.accidia.protoserver.services.impl;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import org.accidia.jrz.services.IGuidService;
+import org.accidia.protoserver.services.IGuidService;
 
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
-import static org.accidia.jrz.protos.JrzProtos.Guid;
+import static org.accidia.protoserver.protos.ProtoServerProtos.Guid;
 
 public class GuidServiceImpl implements IGuidService {
     private final ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());

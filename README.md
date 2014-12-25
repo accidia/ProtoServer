@@ -5,7 +5,7 @@ ProtoServer - Jetty, Jersey, and Protocol Buffers
 
 ## How to use?
 
-Latest build: https://github.com/accidia/jrz/archive/master.zip
+Latest build: https://github.com/accidia/protoserver/archive/master.zip
 
 Or use it as a maven dependency:
 

@@ -1,8 +1,8 @@
-package org.accidia.jrz.services;
+package org.accidia.protoserver.services;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import static org.accidia.jrz.protos.JrzProtos.Guid;
+import static org.accidia.protoserver.protos.ProtoServerProtos.Guid;
 
 public interface IGuidService {
 

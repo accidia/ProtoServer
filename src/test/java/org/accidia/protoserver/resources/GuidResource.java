@@ -1,10 +1,10 @@
-package org.accidia.jrz.resources;
+package org.accidia.protoserver.resources;
 
-import org.accidia.jrz.misc.AsyncResponses;
-import org.accidia.jrz.misc.MediaTypes;
-import org.accidia.jrz.services.impl.GuidServiceImpl;
-import org.accidia.jrz.services.IGuidService;
-import org.accidia.jrz.protos.JrzProtos;
+import org.accidia.protoserver.misc.AsyncResponses;
+import org.accidia.protoserver.misc.MediaTypes;
+import org.accidia.protoserver.protos.ProtoServerProtos;
+import org.accidia.protoserver.services.impl.GuidServiceImpl;
+import org.accidia.protoserver.services.IGuidService;
 import org.glassfish.jersey.server.ManagedAsync;
 
 import javax.ws.rs.GET;
@@ -34,7 +34,7 @@ public class GuidResource {
      */
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaTypes.APPLICATION_PROTOBUF + ";qs=0.5"})
-    public JrzProtos.Guid getGuid() {
+    public ProtoServerProtos.Guid getGuid() {
         return this.service.getGuid();
     }
 

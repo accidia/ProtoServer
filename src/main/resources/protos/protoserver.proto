@@ -1,7 +1,7 @@
-option java_package = "org.accidia.jrz.protos";
-option java_outer_classname = "JrzProtos";
+option java_package = "org.accidia.protoserver.protos";
+option java_outer_classname = "ProtoServerProtos";
 
-// this is mostly to sanity check jrz container
+// this is mostly to sanity check protoserver container
 message Guid {
     required string guid = 1;
     required uint64 timestamp_utc = 2;

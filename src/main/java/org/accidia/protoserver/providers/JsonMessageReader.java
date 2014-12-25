@@ -1,4 +1,4 @@
-package org.accidia.jrz.providers;
+package org.accidia.protoserver.providers;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;

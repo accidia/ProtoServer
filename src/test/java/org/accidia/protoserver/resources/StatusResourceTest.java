@@ -1,11 +1,11 @@
-package org.accidia.jrz.resources;
+package org.accidia.protoserver.resources;
 
-import org.accidia.jrz.IJrzApplication;
-import org.accidia.jrz.JrzTestApplication;
-import org.accidia.jrz.misc.MediaTypes;
-import org.accidia.jrz.protos.JrzProtos;
-import org.accidia.jrz.providers.ProtobufMessageReader;
-import org.accidia.jrz.providers.ProtobufMessageWriter;
+import org.accidia.protoserver.IProtoServerApplication;
+import org.accidia.protoserver.ProtoServerTestApplication;
+import org.accidia.protoserver.misc.MediaTypes;
+import org.accidia.protoserver.protos.ProtoServerProtos;
+import org.accidia.protoserver.providers.ProtobufMessageReader;
+import org.accidia.protoserver.providers.ProtobufMessageWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
@@ -19,15 +19,15 @@ import static org.testng.Assert.*;
 
 public class StatusResourceTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final IJrzApplication application;
+    private final IProtoServerApplication application;
     private final WebTarget webTarget;
 
     public StatusResourceTest() {
-        this.application = new JrzTestApplication();
+        this.application = new ProtoServerTestApplication();
         this.webTarget = ClientBuilder.newClient()
                 .register(ProtobufMessageReader.class)
                 .register(ProtobufMessageWriter.class)
-                .target(JrzTestApplication.BASE_URI);
+                .target(ProtoServerTestApplication.BASE_URI);
     }
 
     @BeforeMethod
@@ -46,9 +46,9 @@ public class StatusResourceTest {
     public void testGetStatus() {
         logger.debug("testGetStatus");
 
-        final JrzProtos.Status status = this.webTarget.path(".status")
+        final ProtoServerProtos.Status status = this.webTarget.path(".status")
                 .request(MediaTypes.APPLICATION_PROTOBUF)
-                .get(JrzProtos.Status.class);
+                .get(ProtoServerProtos.Status.class);
         assertNotNull(status);
         logger.info("status recieved: {}", status);
     }

@@ -1,7 +1,7 @@
-package org.accidia.jrz.providers;
+package org.accidia.protoserver.providers;
 
 import com.google.protobuf.Message;
-import org.accidia.jrz.misc.MediaTypes;
+import org.accidia.protoserver.misc.MediaTypes;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;

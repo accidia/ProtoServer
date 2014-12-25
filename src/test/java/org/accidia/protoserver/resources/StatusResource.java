@@ -1,9 +1,9 @@
-package org.accidia.jrz.resources;
+package org.accidia.protoserver.resources;
 
-import org.accidia.jrz.misc.MediaTypes;
-import org.accidia.jrz.services.IStatusService;
-import org.accidia.jrz.services.impl.StatusServiceImpl;
-import org.accidia.jrz.protos.JrzProtos;
+import org.accidia.protoserver.misc.MediaTypes;
+import org.accidia.protoserver.services.IStatusService;
+import org.accidia.protoserver.services.impl.StatusServiceImpl;
+import org.accidia.protoserver.protos.ProtoServerProtos;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +20,7 @@ public class StatusResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaTypes.APPLICATION_PROTOBUF + ";qs=0.5"})
-    public JrzProtos.Status getStatus() {
+    public ProtoServerProtos.Status getStatus() {
         return service.getStatus();
     }
 }

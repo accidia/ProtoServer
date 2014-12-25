@@ -1,4 +1,4 @@
-package org.accidia.jrz.misc;
+package org.accidia.protoserver.misc;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
