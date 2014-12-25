@@ -1,4 +1,4 @@
-JRZ - Jetty, Jersey, and Protocol Buffers
+ProtoServer - Jetty, Jersey, and Protocol Buffers
 ===
 [![Build Status](https://travis-ci.org/accidia/jrz.png?branch=master)](https://travis-ci.org/accidia/jrz)
 
@@ -12,7 +12,7 @@ Or use it as a maven dependency:
 ```xml
 <dependency>
     <groupId>org.accidia</groupId>
-    <artifactId>jrz</artifactId>
+    <artifactId>protoserver</artifactId>
     <version>0.0.18</version>
 </dependency>
 ```
@@ -20,8 +20,8 @@ Or use it as a maven dependency:
 Define the data model in protocol buffers:
 
 ```protobuf
-option java_package = "org.accidia.jrz.sample.protos";
-option java_outer_classname = "JrzSampleProtos";
+option java_package = "org.accidia.protoserver.sample.protos";
+option java_outer_classname = "ProtoServerSampleProtos";
 
 message Guid {
     required string guid = 1;
@@ -32,9 +32,9 @@ message Guid {
 Define the service interfaces:
 
 ```java
-package org.accidia.jrz.sample.services;
+package org.accidia.protoserver.sample.services;
 
-import static org.accidia.jrz.sample.protos.JrzProtos.Guid;
+import static org.accidia.protoserver.sample.protos.ProtoServerProtos.Guid;
 
 public interface IGuidService {
 
@@ -46,13 +46,13 @@ public interface IGuidService {
 Implement services:
 
 ```java
-package org.accidia.jrz.sample.services.impl;
+package org.accidia.protoserver.sample.services.impl;
 
-import org.accidia.jrz.sample.services.IGuidService;
+import org.accidia.protoserver.sample.services.IGuidService;
 
 import java.util.UUID;
 
-import static org.accidia.jrz.sample.protos.JrzProtos.Guid;
+import static org.accidia.protoserver.sample.protos.ProtoServerProtos.Guid;
 
 public class GuidServiceImpl implements IGuidService {
 
@@ -72,11 +72,11 @@ public class GuidServiceImpl implements IGuidService {
 Define and implement a resource endpoint:
 
 ```java
-package org.accidia.jrz.resources;
+package org.accidia.protoserver.resources;
 
 import GuidServiceImpl;
 import IGuidService;
-import org.accidia.jrz.protos.JrzProtos;
+import org.accidia.protoserver.protos.ProtoServerProtos;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -93,7 +93,7 @@ public class GuidResource {
 
     @GET
     @Produces({"application/json", "application/x-protobuf;qs=0.5"})
-    public JrzProtos.Guid getGuid() {
+    public ProtoServerProtos.Guid getGuid() {
         return this.service.getGuid();
     }
 }
@@ -103,20 +103,20 @@ public class GuidResource {
 Create a micro-service instance:
 
 ```java
-package org.accidia.jrz;
+package org.accidia.protoserver;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.net.URI;
 
-public class SampleApplication extends AbstractBaseJrzApplication {
+public class SampleApplication extends AbstractBaseProtoStoreApplication {
     public static final URI BASE_URI = URI.create("http://127.0.0.1:8080/");
     // public static final URI BASE_URI = URI.create("http://0.0.0.0:8080/");
 
     @Override
     public ResourceConfig getResourceConfig() {
             return new ResourceConfig()
-                .packages("org.accidia.jrz.sample");
+                .packages("org.accidia.protostore.sample");
     }
 
     @Override
@@ -125,7 +125,7 @@ public class SampleApplication extends AbstractBaseJrzApplication {
     }
     
     public static void main(final String[] args) {
-        final IJrzApplication application = new SampleApplication();
+        final IProtoStoreApplication application = new SampleApplication();
         application.startServer();
         application.joinOnServer();
         
