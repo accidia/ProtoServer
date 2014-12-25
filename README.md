@@ -1,6 +1,6 @@
 ProtoServer - Jetty, Jersey, and Protocol Buffers
 ===
-[![Build Status](https://travis-ci.org/accidia/jrz.png?branch=master)](https://travis-ci.org/accidia/jrz)
+[![Build Status](https://travis-ci.org/accidia/protostore.png?branch=master)](https://travis-ci.org/accidia/protostore)
 
 
 ## How to use?
