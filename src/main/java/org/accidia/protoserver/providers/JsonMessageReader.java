@@ -28,7 +28,7 @@ import java.lang.reflect.Type;
  */
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
-public class JsonMessageReader implements MessageBodyReader<Message> {
+public class JsonMessageReader<ProtobufType extends Message> implements MessageBodyReader<ProtobufType> {
     private static final Logger logger = LoggerFactory.getLogger(JsonMessageReader.class);
 
     private final ExtensionRegistry extensionRegistry = ExtensionRegistry.newInstance();
@@ -38,11 +38,16 @@ public class JsonMessageReader implements MessageBodyReader<Message> {
                               final Type genericType,
                               final Annotation[] annotations,
                               final MediaType mediaType) {
-        return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
+        // The 'Message' abstract class does not have a 'builder' implementation, so resources cannot
+        // simply ask for a Message object; instead the concrete class definition must be given.
+        return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE)
+                && type.getClass().isAssignableFrom(Message.class)
+                && type.getClass() != Message.class.getClass();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Message readFrom(final Class type,
+    public ProtobufType readFrom(final Class type,
                             final Type genericType,
                             final Annotation[] annotations,
                             final MediaType mediaType,
@@ -53,8 +58,8 @@ public class JsonMessageReader implements MessageBodyReader<Message> {
             final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
             final String data = CharStreams.toString(new InputStreamReader(entityStream, Charsets.UTF_8));
             JsonFormat.merge(data, this.extensionRegistry, builder);
-            return builder.buildPartial();
-        } catch (Exception e) {
+            return (ProtobufType) builder.buildPartial();
+        } catch (final Exception e) {
             logger.warn("exception caught while reading message: ", e);
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

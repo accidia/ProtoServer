@@ -1,6 +1,5 @@
 package org.accidia.protoserver.providers;
 
-import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
 import org.accidia.protoserver.misc.MediaTypes;
 import org.slf4j.Logger;
@@ -24,7 +23,7 @@ import java.lang.reflect.Type;
  */
 @Provider
 @Consumes(MediaTypes.APPLICATION_PROTOBUF)
-public class ProtobufMessageReader implements MessageBodyReader<Message> {
+public class ProtobufMessageReader<ProtobufType extends Message> implements MessageBodyReader<ProtobufType> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
@@ -35,8 +34,9 @@ public class ProtobufMessageReader implements MessageBodyReader<Message> {
         return Message.class.isAssignableFrom(type);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Message readFrom(final Class<Message> type,
+    public ProtobufType readFrom(final Class<ProtobufType> type,
                             final Type genericType,
                             final Annotation[] annotations,
                             final MediaType mediaType,
@@ -44,9 +44,9 @@ public class ProtobufMessageReader implements MessageBodyReader<Message> {
                             final InputStream inputStream) throws IOException, WebApplicationException {
         try {
             final Method newBuilder = type.getMethod("newBuilder");
-            final GeneratedMessage.Builder builder = (GeneratedMessage.Builder) newBuilder.invoke(type);
-            return builder.mergeFrom(inputStream).buildPartial();
-        } catch (Exception e) {
+            final Message.Builder builder = (Message.Builder) newBuilder.invoke(type);
+            return (ProtobufType) builder.mergeFrom(inputStream).buildPartial();
+        } catch (final Exception e) {
             logger.error("exception caught on protobuf message body reader -> rethrowing ", e);
             throw new WebApplicationException("exception caught on protobuf message body reader", e,
                     Response.Status.INTERNAL_SERVER_ERROR);
