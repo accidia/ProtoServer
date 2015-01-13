@@ -4,7 +4,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import com.google.common.base.Strings;
-import com.google.protobuf.Message;
 import org.accidia.protoserver.IProtoServerApplication;
 import org.accidia.protoserver.ProtoServerTestApplication;
 import org.accidia.protoserver.misc.MediaTypes;

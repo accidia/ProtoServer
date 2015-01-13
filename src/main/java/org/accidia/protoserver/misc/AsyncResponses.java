@@ -3,7 +3,6 @@ package org.accidia.protoserver.misc;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.protobuf.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,6 @@ import javax.ws.rs.container.CompletionCallback;
 import javax.ws.rs.container.TimeoutHandler;
 import javax.ws.rs.core.Response;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -50,35 +48,16 @@ public class AsyncResponses {
         });
     }
 
-    public static <ProtobufType extends Message> void addCallbackForListenableFuture(final AsyncResponse asyncResponse,
-                                                                                     final ListenableFuture<ProtobufType> future) {
+    public static <ResponseType> void addCallbackForListenableFuture(final AsyncResponse asyncResponse,
+                                                                     final ListenableFuture<ResponseType> future) {
         logger.debug("addCallbackForListenableFuture(asyncResponse,future)");
         checkArgument(asyncResponse != null, "null asyncResponse");
         checkArgument(future != null, "null future");
 
-        Futures.addCallback(future, new FutureCallback<ProtobufType>() {
+        Futures.addCallback(future, new FutureCallback<ResponseType>() {
             @Override
-            public void onSuccess(final Message message) {
-                asyncResponse.resume(message);
-            }
-
-            @Override
-            public void onFailure(final Throwable throwable) {
-                asyncResponse.resume(throwable);
-            }
-        });
-    }
-
-    public static <ProtobufType extends Message> void addCallbackForListenableFutureList(final AsyncResponse asyncResponse,
-                                                                                     final ListenableFuture<List<ProtobufType>> future) {
-        logger.debug("addCallbackForListenableFuture(asyncResponse,future)");
-        checkArgument(asyncResponse != null, "null asyncResponse");
-        checkArgument(future != null, "null future");
-
-        Futures.addCallback(future, new FutureCallback<List<ProtobufType>>() {
-            @Override
-            public void onSuccess(final List<ProtobufType> messages) {
-                asyncResponse.resume(messages);
+            public void onSuccess(final ResponseType response) {
+                asyncResponse.resume(response);
             }
 
             @Override
