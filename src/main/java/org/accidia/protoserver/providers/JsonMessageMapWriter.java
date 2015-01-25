@@ -58,7 +58,7 @@ public class JsonMessageMapWriter implements MessageBodyWriter<Map<String, Messa
             builder.append(comma);
             builder.append("\"").append(entry.getKey()).append("\": ");
             if (entry.getValue() == null) {
-                builder.append("\"\"");
+                builder.append("{}");
             } else {
                 builder.append(JsonFormat.printToString(entry.getValue()));
             }
