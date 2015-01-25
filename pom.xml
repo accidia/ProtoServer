@@ -171,6 +171,7 @@
                     <source>${source.version}</source>
                     <version>true</version>
                     <windowtitle>protoserver</windowtitle>
+                    <failOnError>false</failOnError>
                 </configuration>
                 <executions>
                     <execution>
