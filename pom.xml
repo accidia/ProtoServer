@@ -5,7 +5,7 @@
     <groupId>org.accidia</groupId>
     <artifactId>protoserver</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.20</version>
+    <version>0.0.21</version>
     <name>protoserver</name>
     <url>https://github.com/accidia/protoserver</url>
 
