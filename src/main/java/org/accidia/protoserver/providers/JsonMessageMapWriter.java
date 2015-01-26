@@ -48,12 +48,20 @@ public class JsonMessageMapWriter implements MessageBodyWriter<Map<String, Messa
     }
 
     protected String mapToString(final Map<String, Message> map) {
+        if (map == null || map.isEmpty()) {
+            return "{}";
+        }
+
         final StringBuilder builder = new StringBuilder("{");
         String comma = "";
         for (final Map.Entry<String, Message> entry : map.entrySet()) {
             builder.append(comma);
-            builder.append("\"").append(entry.getKey()).append("\": ")
-                    .append(JsonFormat.printToString(entry.getValue()));
+            builder.append("\"").append(entry.getKey()).append("\": ");
+            if (entry.getValue() == null) {
+                builder.append("{}");
+            } else {
+                builder.append(JsonFormat.printToString(entry.getValue()));
+            }
             comma = ",";
         }
         builder.append("}");
